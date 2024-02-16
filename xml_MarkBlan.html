@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XML Mark Blan</title>
+<!-- Jquery Library Here -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+</head>
+<body>
+    <!-- HTML Here -->
+    <h2> XMLHTTPRequest Method</h2>
+    <h3> Product Information</h3>
+    <table id="items">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Price</th>
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+        </tbody>
+
+    </table>
+
+    <button id="load"> Load Data </button>
+
+
+
+
+    <!-- JS Here -->
+    <script>
+    $(document).ready(function(){
+
+        $("#load").click(function(){
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.onreadystatechange = function(){
+                // if else statement to check the state. If state is 4 and status is 200
+
+                if (this.readyState==4 && this.status==200){
+                    var items=JSON.parse(this.responseText);
+                    var itemList="";
+
+                    $.each(items, function(i, item){
+                        itemList +="<tr><td>"+item.id+"</td><td>"+ item.title+ "</td><td>"+ item.price+"</td></tr>";
+
+                    });
+                    // display data
+
+                    $("#items tbody").html(itemList);
+                }
+            };
+
+            // open and send method
+
+            xhr.open("GET", "https://fakestoreapi.com/products", true);
+            xhr.send();
+
+        });
+
+    });
+
+
+    </script>
+    
+</body>
+</html>

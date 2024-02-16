@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XML Mark Blan</title>
+<!-- Jquery Library Here -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+</head>
+<body>
+    <!-- HTML Here -->
+
+    <h2>AJAX using JQuery Method</h2>
+    <h3>Customer Profile</h3>
+    <ul id="user-list">
+
+
+    </ul>
+
+    <button id="load-data"> Load More </button>
+
+
+
+
+    <!-- JS Here -->
+    <script>
+        $(document).ready(function(){
+		var users = 2; // Start with 3 users displayed
+		$("#load-data").click(function(){
+			$.ajax({
+				url: "https://jsonplaceholder.typicode.com/users",
+				success: function(result){
+					// Loop through each user and create an <li> element for each
+					var userList = "";
+					for (var i = users; i < users + 2; i++) {
+						if (result[i]) {
+							userList += "<li>" + result[i].name + " (" + result[i].email + ")</li>";
+						}
+					}
+
+					// Update the HTML on the page with the new user list
+					$("#user-list").append(userList);
+
+					// Increase the number of displayed users by 3
+					users += 2;
+				},
+				error: function(xhr, status, error){
+					console.log("Error: " + error);
+				}
+			});
+		});
+	});
+
+
+
+
+
+    </script>
+    
+</body>
+</html>
